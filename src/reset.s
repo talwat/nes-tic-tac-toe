@@ -4,6 +4,7 @@
 .import main
 .export reset_handler
 .proc reset_handler
+  ; Fancy crap to whip the NES into shape.
   SEI
   CLD
   LDX #$40
@@ -22,7 +23,10 @@ vblankwait:
 	LDX #$00
 	LDA #$FF
 clear_oam:
-	STA $0200,X ; set sprite y-positions off the screen
+  ; Move all of the sprites off screen,
+  ; this is to prevent garbled sprites before
+  ; the NES is properly loaded.
+	STA $0200,X
 	INX
 	INX
 	INX
